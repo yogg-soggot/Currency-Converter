@@ -1,18 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_margin="28dp"
+    tools:context=".ui.MainActivity">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_currency1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="33dp"
+        android:hint="@string/hint_currency1"
+        app:hintTextColor="@color/hint"
+        android:textColorHint="@color/hint"
+        app:layout_constraintEnd_toStartOf="@+id/currencyName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/roboto_medium"
+            android:inputType="numberDecimal"
+            android:paddingStart="0dp"
+            android:textSize="28sp"
+            tools:ignore="RtlSymmetry" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
+        android:id="@+id/currencyName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:drawablePadding="5dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/default_currency"
+        android:textColor="@color/currency"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/input_currency1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/input_currency1"
+        app:drawableEndCompat="@drawable/ic_tick" />
+
+    <View
+        android:id="@+id/ic_arrows"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ic_arrows"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_currency1" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_currency2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="33dp"
+        android:hint="@string/hint_currency2"
+        android:textColorHint="@color/hint"
+        app:hintTextColor="@color/hint"
+        app:layout_constraintEnd_toStartOf="@+id/currencyName2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ic_arrows">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/roboto_medium"
+            android:inputType="numberDecimal"
+            android:paddingStart="0dp"
+            android:textSize="28sp"
+            tools:ignore="RtlSymmetry" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/currencyName2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="5dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/default_currency"
+        android:textColor="@color/currency"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/input_currency2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/input_currency2"
+        app:drawableEndCompat="@drawable/ic_tick" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
