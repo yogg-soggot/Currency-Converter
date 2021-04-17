@@ -14,16 +14,3 @@ class ViewModelFactory @Inject constructor(
         ).newInstance(interactor)
     }
 }
-
-/* подсказка куда вставлять зависимости
-class ViewModelFactory @Inject constructor(
-    private val factory: PortalFactory,
-    private val repository: Repository
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return modelClass.getConstructor(
-            PortalFactory::class.java,
-            Repository::class.java
-        ).newInstance(factory, repository)
-    }
-}*/

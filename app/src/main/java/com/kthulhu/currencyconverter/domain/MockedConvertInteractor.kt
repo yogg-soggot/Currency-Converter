@@ -17,6 +17,6 @@ class MockedConvertInteractor: IConvertInteractor {
     override fun cacheRates() = Unit
 
     companion object {
-        val names = listOf("USD", "RUB", "EUR", "CAD", "GEL", "INR")
+        val names = listOf("USD", "RUB", "EUR", "CAD", "GEL", "INR", "JOJ", "OGO", "LDE", "NWI", "NDE")
     }
 }

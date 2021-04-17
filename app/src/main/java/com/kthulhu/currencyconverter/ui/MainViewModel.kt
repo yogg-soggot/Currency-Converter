@@ -12,13 +12,16 @@ class MainViewModel @Inject constructor(
 
     lateinit var currencyNames: List<String>
 
-    private val _currency1NameLiveData = MutableLiveData("USD")
+    var editedFieldNumber = 1
+    var previousCurrencyName = DEFAULT_CURRENCY
+
+    private val _currency1NameLiveData = MutableLiveData(DEFAULT_CURRENCY)
     val currency1NameLiveData: LiveData<String> = _currency1NameLiveData
 
     private val _currency1ValueLiveData = MutableLiveData<Double>()
     val currency1ValueLiveData: LiveData<Double> = _currency1ValueLiveData
 
-    private val _currency2NameLiveData = MutableLiveData("USD")
+    private val _currency2NameLiveData = MutableLiveData(DEFAULT_CURRENCY)
     val currency2NameLiveData: LiveData<String> = _currency2NameLiveData
 
     private val _currency2ValueLiveData = MutableLiveData<Double>()
@@ -32,12 +35,12 @@ class MainViewModel @Inject constructor(
         convertInteractor.cacheRates()
     }
 
-    fun changeName1(name: String){
-        _currency1NameLiveData.postValue(name)
-    }
-
-    fun changeName2(name: String){
-        _currency2NameLiveData.postValue(name)
+    fun changeName(name: String = previousCurrencyName) {
+        when(editedFieldNumber){
+            1 -> _currency1NameLiveData.postValue(name)
+            2 -> _currency2NameLiveData.postValue(name)
+            else -> throw IllegalArgumentException()
+        }
     }
 
     fun convertCurrency1(value: Double) {
@@ -54,5 +57,7 @@ class MainViewModel @Inject constructor(
         _currency1ValueLiveData.postValue(newValue)
     }
 
-
+    companion object {
+        const val DEFAULT_CURRENCY = "USD"
+    }
 }

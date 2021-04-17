@@ -3,4 +3,6 @@
     <string name="hint_currency1">You send</string>
     <string name="hint_currency2">They get</string>
     <string name="default_currency">USD</string>
+    <string name="dialog_fragment_title">Choose a currency</string>
+    <string name="cancel">CANCEL</string>
 </resources>
