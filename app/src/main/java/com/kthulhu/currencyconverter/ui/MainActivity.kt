@@ -2,6 +2,7 @@ package com.kthulhu.currencyconverter.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
@@ -10,6 +11,7 @@ import com.kthulhu.currencyconverter.di.AppComponent
 import com.kthulhu.currencyconverter.di.AppModule
 import com.kthulhu.currencyconverter.di.DaggerAppComponent
 import com.kthulhu.currencyconverter.di.ViewModelFactory
+import com.kthulhu.currencyconverter.domain.toMoney
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -33,21 +35,39 @@ class MainActivity : AppCompatActivity() {
         viewModel.getCurrencyNames()
         viewModel.cacheRates()
 
+        setInputFilters()
         addTextListeners()
         observeCurrency()
         observeCurrencyNames()
         addCurrencyChangeListeners()
     }
 
+    private fun setInputFilters(){
+        et_currency1.filters = arrayOf(DecimalDigitsInputFilter(4))
+        et_currency2.filters = arrayOf(DecimalDigitsInputFilter(4))
+    }
+
     private fun addTextListeners(){
         et_currency1.addTextChangedListener {
-            if(isEditing||it.isNullOrEmpty()) return@addTextChangedListener
-            viewModel.convertCurrency1(it.toString().toDouble())
+            if(isEditing) {
+                return@addTextChangedListener
+            }
+            if(it.isNullOrEmpty()){
+                et_currency2.setTextWithoutTriggeringTextChange("")
+                return@addTextChangedListener
+            }
+            viewModel.convertCurrency1(it.toMoney())
         }
 
         et_currency2.addTextChangedListener {
-            if (isEditing||it.isNullOrEmpty()) return@addTextChangedListener
-            viewModel.convertCurrency2(it.toString().toDouble())
+            if (isEditing) {
+                return@addTextChangedListener
+            }
+            if(it.isNullOrEmpty()){
+                et_currency1.setTextWithoutTriggeringTextChange("")
+                return@addTextChangedListener
+            }
+            viewModel.convertCurrency2(it.toMoney())
         }
     }
 
@@ -69,31 +89,34 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeCurrency(){
-        viewModel.currency1ValueLiveData.observe(this, {
-            setTextWithoutTriggeringTextChange {
-                et_currency1.setText(it.toString())
-            }
+        viewModel.currency1AmountLiveData.observe(this, {
+            et_currency1.setTextWithoutTriggeringTextChange(it.toString())
+
         })
 
-        viewModel.currency2ValueLiveData.observe(this, {
-            setTextWithoutTriggeringTextChange {
-                et_currency2.setText(it.toString())
-            }
+        viewModel.currency2AmountLiveData.observe(this, {
+            et_currency2.setTextWithoutTriggeringTextChange(it.toString())
         })
     }
 
-    private fun setTextWithoutTriggeringTextChange(setText: () -> Unit){
+    private fun EditText.setTextWithoutTriggeringTextChange(text: String){
         isEditing = true
-        setText()
+        this.setText(text)
         isEditing = false
     }
 
     private fun observeCurrencyNames(){
         viewModel.currency1NameLiveData.observe(this, {
             currencyName.text = it
+            val currencyValue = et_currency1.text
+            if(currencyValue.isNullOrEmpty()) return@observe
+            viewModel.convertCurrency1(currencyValue.toMoney())
         })
         viewModel.currency2NameLiveData.observe(this, {
             currencyName2.text = it
+            val currencyValue = et_currency2.text
+            if(currencyValue.isNullOrEmpty()) return@observe
+            viewModel.convertCurrency2(currencyValue.toMoney())
         })
     }
 

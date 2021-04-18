@@ -2,10 +2,10 @@ package com.kthulhu.currencyconverter.domain
 
 interface IConvertInteractor {
     fun convertCurrency(
-        value: Double,
+        amount: Money,
         currencyName1: String,
         currencyName2: String
-    ): Double
+    ): Money
 
     fun getCurrencyNames(): List<String>
 
