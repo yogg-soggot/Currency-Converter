@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
 import com.kthulhu.currencyconverter.R
@@ -31,9 +32,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         injectDependencies()
-
-        viewModel.getCurrencyNames()
-        viewModel.cacheRates()
 
         setInputFilters()
         addTextListeners()

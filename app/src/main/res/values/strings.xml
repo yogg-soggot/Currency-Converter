@@ -5,4 +5,5 @@
     <string name="default_currency">USD</string>
     <string name="dialog_fragment_title">Choose a currency</string>
     <string name="cancel">CANCEL</string>
+    <string name="error_no_rates_loaded">No data is loaded. Please connect to the internet and try again</string>
 </resources>

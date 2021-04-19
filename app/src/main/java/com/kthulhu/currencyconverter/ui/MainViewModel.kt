@@ -11,8 +11,6 @@ class MainViewModel @Inject constructor(
     private val convertInteractor: IConvertInteractor
 ) : ViewModel() {
 
-    lateinit var currencyNames: List<String>
-
     var editedFieldNumber = 1
     var previousCurrencyName = DEFAULT_CURRENCY
 
@@ -28,12 +26,8 @@ class MainViewModel @Inject constructor(
     private val _currency2AmountLiveData = MutableLiveData<Money>()
     val currency2AmountLiveData: LiveData<Money> = _currency2AmountLiveData
 
-    fun getCurrencyNames() {
-        currencyNames = convertInteractor.getCurrencyNames()
-    }
-
-    fun cacheRates(){
-        convertInteractor.cacheRates()
+    fun getCurrencyNames() : List<String> {
+        return convertInteractor.getCurrencyNames()
     }
 
     fun changeName(name: String = previousCurrencyName) {
@@ -56,6 +50,10 @@ class MainViewModel @Inject constructor(
         val name2 = _currency2NameLiveData.value!!
         val newValue = convertInteractor.convertCurrency(amount, name2, name1)
         _currency1AmountLiveData.postValue(newValue)
+    }
+
+    override fun onCleared() {
+        convertInteractor.stopAsyncOperations()
     }
 
     companion object {

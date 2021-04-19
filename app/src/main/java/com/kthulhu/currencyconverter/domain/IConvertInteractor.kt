@@ -9,5 +9,5 @@ interface IConvertInteractor {
 
     fun getCurrencyNames(): List<String>
 
-    fun cacheRates()
+    fun stopAsyncOperations()
 }

@@ -56,12 +56,11 @@ class ChooseCurrencyDialogFragment : DialogFragment() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(RADIO_BUTTON_TEXT_KEY, checkedButtonText)
-
     }
 
     private fun addRadioButtons(){
         var checkedButton: RadioButton? = null
-        for (currency in viewModel.currencyNames){
+        for (currency in viewModel.getCurrencyNames()){
             val button = RadioButton(context).apply {
                 text = currency
                 textSize = 16F
