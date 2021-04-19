@@ -7,6 +7,7 @@ import com.kthulhu.currencyconverter.data.db.Currency
 import com.kthulhu.currencyconverter.data.db.ExchangeDao
 import com.kthulhu.currencyconverter.data.db.NextUpdate
 import com.kthulhu.currencyconverter.data.networking.*
+import com.kthulhu.currencyconverter.domain.IRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
@@ -17,13 +18,13 @@ import javax.inject.Inject
 class Repository @Inject constructor(
         private val restApi: RestApi,
         private val exchangeDao: ExchangeDao
-) {
+) : IRepository {
 
     private val areRatesLoadedLiveData = MutableLiveData(false)
-    fun setRatesLoaded() = areRatesLoadedLiveData.postValue(true)
-    fun areRatesLoaded(): LiveData<Boolean> = areRatesLoadedLiveData
+    override fun setRatesLoaded() = areRatesLoadedLiveData.postValue(true)
+    override fun areRatesLoaded(): LiveData<Boolean> = areRatesLoadedLiveData
 
-    fun getRates(job: Job): Flow<Map<String, Double>> {
+    override fun getRates(job: Job): Flow<Map<String, Double>> {
         loadIfHasUpdate(job)
         log("Subscribed on rates in db")
         return exchangeDao
@@ -53,7 +54,7 @@ class Repository @Inject constructor(
         }
     }
 
-    fun loadRatesFromNet() = GlobalScope.launch(Dispatchers.IO){
+    override fun loadRatesFromNet() = GlobalScope.launch(Dispatchers.IO){
         when(val result = safeApiCall { restApi.getData() }) {
             is ResultWrapper.Success -> {
                 log("Data is loaded from net, caching")

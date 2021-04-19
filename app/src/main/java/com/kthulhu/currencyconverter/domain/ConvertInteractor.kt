@@ -1,6 +1,5 @@
 package com.kthulhu.currencyconverter.domain
 
-import com.kthulhu.currencyconverter.data.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
@@ -9,7 +8,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ConvertInteractor @Inject constructor(
-        private val repository: Repository
+        private val repository: IRepository
 ): IConvertInteractor {
 
     private val job = Job()

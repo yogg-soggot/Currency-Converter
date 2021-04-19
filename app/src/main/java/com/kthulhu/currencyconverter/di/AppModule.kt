@@ -8,6 +8,7 @@ import com.kthulhu.currencyconverter.data.db.ExchangeRoomDatabase
 import com.kthulhu.currencyconverter.data.networking.RestApi
 import com.kthulhu.currencyconverter.domain.IConvertInteractor
 import com.kthulhu.currencyconverter.domain.ConvertInteractor
+import com.kthulhu.currencyconverter.domain.IRepository
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -23,6 +24,11 @@ class AppModule(private val context: Context) {
     @Provides
     fun provideConvertInteractor(repository: Repository): IConvertInteractor {
         return ConvertInteractor(repository)
+    }
+
+    @Provides
+    fun provideRepository(restApi: RestApi, exchangeDao: ExchangeDao): IRepository {
+        return Repository(restApi, exchangeDao)
     }
 
     @Provides
