@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder
 import com.kthulhu.currencyconverter.data.Repository
 import com.kthulhu.currencyconverter.data.db.ExchangeDao
 import com.kthulhu.currencyconverter.data.db.ExchangeRoomDatabase
-import com.kthulhu.currencyconverter.data.networking.MockInterceptor
 import com.kthulhu.currencyconverter.data.networking.RestApi
 import com.kthulhu.currencyconverter.domain.IConvertInteractor
 import com.kthulhu.currencyconverter.domain.ConvertInteractor
@@ -39,9 +38,8 @@ class AppModule(private val context: Context) {
     }
 
     @Provides
-    fun provideOkHttp(interceptor: MockInterceptor): OkHttpClient {
+    fun provideOkHttp(): OkHttpClient {
         return OkHttpClient.Builder()
-            //.addInterceptor(interceptor)
             .build()
     }
 
