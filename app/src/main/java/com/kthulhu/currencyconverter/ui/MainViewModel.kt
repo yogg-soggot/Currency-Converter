@@ -26,6 +26,10 @@ class MainViewModel @Inject constructor(
     private val _currency2AmountLiveData = MutableLiveData<Money>()
     val currency2AmountLiveData: LiveData<Money> = _currency2AmountLiveData
 
+    fun areRatesLoaded(): LiveData<Boolean> = convertInteractor.areRatesLoaded()
+
+    fun forceLoadRates() = convertInteractor.forceLoadRates()
+
     fun getCurrencyNames() : List<String> {
         return convertInteractor.getCurrencyNames()
     }

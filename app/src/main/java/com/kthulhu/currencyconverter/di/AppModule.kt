@@ -41,7 +41,7 @@ class AppModule(private val context: Context) {
     @Provides
     fun provideOkHttp(interceptor: MockInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(interceptor)
+            //.addInterceptor(interceptor)
             .build()
     }
 

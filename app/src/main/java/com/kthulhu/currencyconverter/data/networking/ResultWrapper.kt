@@ -15,6 +15,8 @@ suspend fun <T> safeApiCall(apiCall: suspend () -> T): ResultWrapper<T> {
     }
 }
 
-fun logException(t: Throwable) {
-    Log.e("Network Error", t.message.toString())
+fun logException(r: ResultWrapper.Error) {
+    Log.e("Network Error",
+            r.throwable.message.toString() + r.code.toString() + r.error
+    )
 }

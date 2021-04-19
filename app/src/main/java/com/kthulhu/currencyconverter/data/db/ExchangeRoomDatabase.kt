@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Currency::class, NextUpdate::class], version = 3)
+@Database(entities = [Currency::class, NextUpdate::class], version = 13)
 abstract class ExchangeRoomDatabase : RoomDatabase(){
     abstract fun exchangeDao(): ExchangeDao
 

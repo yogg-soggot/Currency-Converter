@@ -19,9 +19,14 @@ class ConvertInteractor @Inject constructor(
             repository.getRates(job).collect {
                 rates = it
                 names = it.keys.toList()
+                if(it.isNotEmpty()) repository.setRatesLoaded()
             }
         }
     }
+
+    override fun areRatesLoaded() = repository.areRatesLoaded()
+
+    override fun forceLoadRates() = repository.loadRatesFromNet()
 
     override fun stopAsyncOperations() {
         job.cancel()

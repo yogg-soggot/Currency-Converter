@@ -35,7 +35,16 @@ class ChooseCurrencyDialogFragment : DialogFragment() {
 
         checkedButtonText = savedInstanceState?.getString(RADIO_BUTTON_TEXT_KEY, "")?: ""
 
-        addRadioButtons()
+        checkIfDataNotLoaded()
+
+        viewModel.areRatesLoaded().observe(viewLifecycleOwner, {
+            if(it){
+                progressBar.visibility = View.GONE
+                addRadioButtons()
+            } else {
+                progressBar.visibility = View.VISIBLE
+            }
+        })
 
         radio_group.setOnCheckedChangeListener { _, checkedId ->
             val button = view.findViewById<RadioButton>(checkedId)
@@ -56,6 +65,12 @@ class ChooseCurrencyDialogFragment : DialogFragment() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(RADIO_BUTTON_TEXT_KEY, checkedButtonText)
+    }
+
+    private fun checkIfDataNotLoaded(){
+        if(viewModel.getCurrencyNames().isNotEmpty()) return
+        Toast.makeText(requireContext(), resources.getString(R.string.error_no_rates_loaded), Toast.LENGTH_LONG).show()
+        viewModel.forceLoadRates()
     }
 
     private fun addRadioButtons(){

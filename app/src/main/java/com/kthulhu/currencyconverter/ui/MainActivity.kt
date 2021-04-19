@@ -41,8 +41,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setInputFilters(){
-        et_currency1.filters = arrayOf(DecimalDigitsInputFilter(4))
-        et_currency2.filters = arrayOf(DecimalDigitsInputFilter(4))
+        et_currency1.filters = arrayOf(DecimalDigitsInputFilter(2))
+        et_currency2.filters = arrayOf(DecimalDigitsInputFilter(2))
     }
 
     private fun addTextListeners(){

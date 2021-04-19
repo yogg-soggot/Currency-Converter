@@ -18,5 +18,5 @@ interface ExchangeDao {
     suspend fun saveUpdateTime(update: NextUpdate): Void
 
     @Query("SELECT timeUnix FROM next_update")
-    suspend fun getUpdateTime(): Int
+    suspend fun getUpdateTime(): Int?
 }

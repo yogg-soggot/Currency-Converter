@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "next_update")
 data class NextUpdate(
+    val timeUnix: Int,
     @PrimaryKey
-    val id: Int = 1,
-    val timeUnix: Int
+    val id: Int = 1
 )
